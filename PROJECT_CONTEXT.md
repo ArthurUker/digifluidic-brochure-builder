@@ -205,6 +205,9 @@ C:\digifluidic-brochure\dist
 ```text
 http://服务器IP:8083
 ```
+
+> 路径格式说明：以上 `C:\...` 使用反斜杠是 Windows 文件系统（PowerShell/CMD）中的标准路径写法。Nginx 配置中必须使用正斜杠（`C:/...`），见 §8.3。
+
 ### 8.3 Nginx 配置原则
 Nginx 应单独增加一个 `server` block：
 ```nginx
@@ -223,18 +226,18 @@ server {
 2. 如项目最终只有单页无前端路由，也可保留该配置；
 3. 不应修改已有系统的端口和 server block；
 4. 修改 Nginx 后必须先测试配置再 reload；
-5. Windows 路径在 Nginx 中建议使用正斜杠。
+5. Nginx 配置中 Windows 路径必须使用正斜杠（`C:/...`），不能使用反斜杠（`C:\...`）。
 ### 8.4 部署脚本方向
 后续可编写 `deploy.ps1` 完成：
-1. 拉取最新代码；
-2. 安装依赖；
-3. 构建前端；
-4. 检查 `dist/`；
-5. 备份旧版本；
-6. 替换静态文件；
-7. 测试 Nginx 配置；
-8. reload Nginx；
-9. 输出访问地址和部署结果。
+1. 检查 `dist/`；
+2. 备份旧版本；
+3. 替换静态文件；
+4. 测试 Nginx 配置；
+5. reload Nginx；
+6. 输出访问地址和部署结果。
+
+> PowerShell 脚本中 Windows 路径使用反斜杠（`C:\...`）；Nginx 配置文件中路径使用正斜杠（`C:/...`）。两者不能混用。
+
 但当前阶段先完成项目文档和本地前端骨架，不急于编写部署脚本。
 ---
 ## 9. PDF 导出方案
@@ -359,6 +362,7 @@ docs/
 15. 已生成并写入 `docs/01_architecture/00_ARCHITECTURE_OVERVIEW.md`，作为项目总体架构、纯前端静态站点方案、内容数据流、PDF 导出链路和 Windows Nginx 部署隔离原则的基准文档；
 16. 已生成并写入 `docs/01_architecture/01_TECH_STACK.md`，作为项目技术栈、工具角色、选型原因、风险控制和当前阶段不纳入技术的基准文档；
 17. 已完成 docs 文档体系全部 39 个 Markdown 文件的填充，涵盖 `00_project/`、`01_architecture/`、`02_content/`、`03_design/`、`04_development/`、`05_deployment/`、`06_pdf_export/`、`07_review_release/`、`08_operations/` 共 9 个子目录，文档主干建设阶段完成。
+18. 已创建 GitHub 远程仓库（https://github.com/ArthurUker/digifluidic-brochure-builder.git），并完成本地代码首次推送。
 ### 11.2 当前正在进行
 文档主干建设阶段已完成，当前进入前端项目骨架生成阶段。
 
@@ -472,6 +476,18 @@ docs/08_operations/03_MAINTENANCE_CHECKLIST.md
 - "当前下一步"是否仍然有效；
 - "后续推荐推进路线"是否需要调整；
 - 是否需要新增风险、约束或协作注意事项。
+
+#### 12.6.1 骨架文件分批生成时的中间状态更新规则
+
+阶段 2（前端骨架）涉及多个文件，可能分多轮生成。为避免上下文过期，分批生成时按以下节点更新 `PROJECT_CONTEXT.md`：
+
+| 节点 | 何时更新 | 更新位置 |
+|---|---|---|
+| 骨架第一批完成 | `package.json`、`vite.config.ts`、`tsconfig.json`、`tsconfig.node.json`、`tailwind.config.js`、`postcss.config.js`、`index.html`、`.gitignore` 生成后 | §11.2 更新"当前正在进行"中已生成的文件列表 |
+| 骨架全部完成 | 所有 14 个骨架文件生成完毕后 | §11.1 追加"前端骨架生成完成"；§11.2 更新为"骨架生成完成"；§18 更新为下一阶段 |
+| 骨架分批过程中 | 每生成一批文件后 | §11.2 更新已生成文件清单，保持"当前正在进行"准确 |
+
+执行型 AI 助手在每批骨架文件生成后，应自动更新 §11.2 中"已完成"文件列表，并在全部骨架文件完成后追加 §11.1 并更新 §18。不应等到所有阶段结束后才一次性更新。
 
 当用户将 `PROJECT_CONTEXT.md` 贴给新的 AI 对话或 VS Code Monica 扩展时，助手应以该文件中的最新状态为准继续协作。不同类型 AI 助手应根据本文件第 12.7 和第 12.8 小节判断自身角色：对话型 AI 助手负责分析、审阅和输出 Prompt；执行型 AI 助手负责按 Prompt 直接写入文件，并在关键文件完成后自动同步更新 `PROJECT_CONTEXT.md`。
 
@@ -627,7 +643,29 @@ docs/08_operations/03_MAINTENANCE_CHECKLIST.md
 
 ### 13.0 当前 Git 与 GitHub 状态
 
-当前项目尚未创建 GitHub 远程仓库。暂时不急于推送至 GitHub，待文档主干建设完成后再统一创建远程仓库和首次推送。本地 Git 操作（`git init`、`git add`、`git commit`）可在关键节点按需执行。
+当前 GitHub 远程仓库已创建，仓库地址如下：
+
+- HTTPS：https://github.com/ArthurUker/digifluidic-brochure-builder.git
+- SSH：git@github.com:ArthurUker/digifluidic-brochure-builder.git
+- 仓库可见性：Public
+- 仓库所有者：ArthurUker
+
+本地代码已完成首次推送（`git push -u origin main`），远程主分支为 `main`。
+
+后续推送命令：
+
+```bash
+git add .
+git commit -m "描述本次变更"
+git push
+```
+
+推荐在以下节点执行 Git 提交和推送：
+- 完成一个 docs 子目录的文档填充；
+- 完成前端骨架文件生成；
+- 完成核心组件；
+- 完成 PDF 导出脚本；
+- 完成部署配置。
 
 ### 13.1 本地 Git 初始化
 
@@ -786,6 +824,8 @@ src/App.tsx
 src/styles/index.css
 src/styles/print.css
 src/data/brochure.ts
+src/types/brochure.ts
+.gitignore
 ```
 
 ### 阶段 3：生成页面组件
@@ -866,7 +906,7 @@ npm run export:pdf
 生成前端项目骨架（阶段 2）
 ```
 
-预计生成文件包括：
+GitHub 远程仓库已就绪，下一步进入阶段 2，生成以下前端骨架文件：
 
 ```text
 package.json
@@ -885,4 +925,4 @@ src/types/brochure.ts
 .gitignore
 ```
 
-骨架生成完成后，继续阶段 3（页面组件）和阶段 4（PDF 导出脚本）。
+骨架文件全部生成完毕后，执行一次 Git 提交和推送，再继续阶段 3（页面组件）。
