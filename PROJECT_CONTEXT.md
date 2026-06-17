@@ -835,6 +835,8 @@ src/types/brochure.ts
 ```text
 src/components/BrochureLayout.tsx
 src/components/CoverPage.tsx
+src/components/ExecutiveSummary.tsx
+src/components/PlatformOverview.tsx
 src/components/SectionPage.tsx
 src/components/ApplicationMatrix.tsx
 src/components/PaperEvidenceList.tsx

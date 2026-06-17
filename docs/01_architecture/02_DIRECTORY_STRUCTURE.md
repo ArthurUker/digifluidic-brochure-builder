@@ -130,6 +130,7 @@ Digifluidic_commercial promotion/
 ├── postcss.config.js
 ├── index.html
 ├── PROJECT_CONTEXT.md
+├── deploy.ps1                                   # Windows 部署脚本，暂放根目录，便于在服务器上直接执行
 └── .gitignore
 ```
 
