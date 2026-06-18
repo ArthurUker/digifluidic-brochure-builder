@@ -439,8 +439,10 @@ docs/08_operations/03_MAINTENANCE_CHECKLIST.md
 5. 本地开发、构建和预览；
 6. PDF 导出；
 7. 部署和 Nginx 检查。
-### 12.4 给 Monica 扩展的通用 Prompt 约束
-后续生成或修改文件时，建议在 Prompt 末尾加入以下约束：
+### 12.4 给 VS Code AI 扩展的通用 Prompt 约束
+
+后续生成或修改文件时，建议在 Prompt 末尾加入以下约束（适用于 VS Code AI 扩展（Monica、Copilot、Continue、Codex、CodeBuddy 等））：
+
 1. 只写入目标文件正文，不要输出解释；
 2. 不要将整个文件内容用 Markdown 代码块包裹；如文件正文需要命令示例或代码块，可正常保留；
 3. 不要输出 cat、EOF、echo、python、bash 等终端命令；
@@ -448,7 +450,18 @@ docs/08_operations/03_MAINTENANCE_CHECKLIST.md
 5. 保持中文、专业、清晰；
 6. 不要引入当前项目不存在的后端、数据库、登录、CMS、PM2、Docker、Kubernetes；
 7. 如为宣传或合规相关文档，不得将论文证据链直接表述为具体产品性能承诺；
-8. 如修改已有文件，应尽量保留既有结构和有效内容，只修正明确需要调整的部分。
+8. 如修改已有文件，应尽量保留既有结构和有效内容，只修正明确需要调整的部分；
+9. 所有代码文件中的注释必须使用中文，适用于 TypeScript、TSX、CSS、HTML、配置文件（`vite.config.ts`、`tailwind.config.js`、`postcss.config.js` 等）和脚本文件（`scripts/`、`deploy.ps1`）；
+10. 禁止使用英文注释，包括单行注释（`//`）、多行注释（`/* */`）和 JSDoc 注释（`/** */`）中的英文内容；
+11. 变量名、函数名、接口名、类型名等标识符保持英文（遵循前端命名惯例），但其上方或右侧的注释内容必须为中文；
+12. 如修改已有文件，应将文件中已存在的英文注释同步改为中文注释，不得保留英文注释；
+13. 注释语言规范示例：
+    - ❌ 错误：`// Component for cover page`
+    - ✅ 正确：`// 封面页组件`
+    - ❌ 错误：`/** @param data Brochure data */`
+    - ✅ 正确：`/** @param data 白皮书完整数据 */`
+    - ❌ 错误：`/* Print styles for A4 export */`
+    - ✅ 正确：`/* A4 打印导出样式 */`
 ### 12.5 每轮标准流程
 每完成一个文件后，建议：
 1. 在 VS Code 中查看文件；
@@ -533,7 +546,8 @@ docs/08_operations/03_MAINTENANCE_CHECKLIST.md
 4. 明确不要输出解释、终端命令或文件正文外的额外内容；
 5. 对宣传、合规、论文证据链相关内容，应保持谨慎表达；
 6. 对长 Markdown、代码、配置文件，优先要求执行型 AI 助手直接写入文件，而非通过终端 heredoc 写入；
-7. 必须基于 `PROJECT_CONTEXT.md` 的最新状态判断下一步，不应重新设计项目技术路线。
+7. 必须基于 `PROJECT_CONTEXT.md` 的最新状态判断下一步，不应重新设计项目技术路线；
+8. 输出的所有代码示例中，注释内容必须使用中文；禁止在 Prompt 中包含英文注释的代码示例，以免执行型 AI 助手照搬英文注释写入项目文件。
 
 ### 12.8 执行型 AI 助手的文件写入与自动更新规则
 
@@ -543,6 +557,7 @@ docs/08_operations/03_MAINTENANCE_CHECKLIST.md
 - CodeBuddy；
 - Continue；
 - GitHub Copilot Chat / Agent；
+- Codex（OpenAI Codex CLI 或 VS Code 集成）；
 - 其他具备项目文件读写能力的 AI 编程助手。
 
 执行型 AI 助手的主要职责是：
@@ -584,7 +599,10 @@ docs/08_operations/03_MAINTENANCE_CHECKLIST.md
 7. 不要重排全文，除非用户明确要求；
 8. 不要擅自新增项目范围外技术；
 9. 对宣传和合规相关内容，不得将论文证据链直接表述为具体产品性能承诺；
-10. 文件修改完成后，如当前工具界面需要回复用户，应简要说明修改完成和修改文件列表，不要把该说明写入项目文件正文。
+10. 文件修改完成后，如当前工具界面需要回复用户，应简要说明修改完成和修改文件列表，不要把该说明写入项目文件正文；
+11. 所有代码文件中的注释必须使用中文，包括 TypeScript、TSX、CSS、HTML 及所有配置文件和脚本文件；
+12. 禁止输出英文注释（`//`、`/* */`、`/** */`），变量名和函数名保持英文，但注释内容必须为中文；
+13. 如对已有文件进行修改，应将文件中已存在的英文注释同步改为中文注释，不得保留英文注释。
 
 ### 12.9 对话型 AI 助手的输出顺序规则
 
@@ -636,6 +654,99 @@ docs/08_operations/03_MAINTENANCE_CHECKLIST.md
 ```
 
 对话型 AI 助手不得声称自己已经直接修改本地项目文件，除非当前工具环境明确具备文件写入能力。对话型 AI 助手应明确自身主要职责是：阅读上下文、审阅文件、判断下一步、输出执行型 AI 可用的 Prompt，以及在必要时提供 `PROJECT_CONTEXT.md` 同步更新方案。
+
+### 12.10 代码注释语言规范
+
+本项目所有代码文件的注释统一使用**中文**，适用于所有 VS Code AI 扩展（Monica、Copilot、Continue、Codex、CodeBuddy 等）生成或修改的代码，以及对话型 AI 助手在回复中提供的代码示例。
+
+#### 适用范围
+
+以下文件类型中的所有注释均须使用中文：
+
+| 文件类型 | 示例文件 |
+|---|---|
+| TypeScript 源文件 | `src/types/brochure.ts`、`src/data/brochure.ts` |
+| React 组件（TSX） | `src/components/*.tsx`、`src/App.tsx`、`src/main.tsx` |
+| 样式文件 | `src/styles/index.css`、`src/styles/print.css` |
+| 配置文件 | `vite.config.ts`、`tailwind.config.js`、`postcss.config.js`、`tsconfig.json` |
+| 脚本文件 | `scripts/export-pdf.ts`、`deploy.ps1` |
+| HTML 文件 | `index.html` |
+
+#### 规则细则
+
+1. **标识符保持英文**：变量名、函数名、接口名、类型名、枚举值、CSS 类名等标识符保持英文，遵循前端社区命名惯例；
+2. **注释内容必须为中文**：所有 `//`、`/* */`、`/** */` 注释中的说明文字必须为中文；
+3. **JSDoc 注释中文化**：`@param`、`@returns`、`@description` 等 JSDoc 标签后的说明文字必须为中文；
+4. **已有英文注释须同步修改**：对已有文件进行任何修改时，应将文件中已存在的英文注释同步改为中文，不得保留英文注释；
+5. **配置文件注释同样适用**：`vite.config.ts`、`tailwind.config.js` 等配置文件中的说明注释也须使用中文；
+6. **PowerShell 脚本注释同样适用**：`deploy.ps1` 中的 `#` 注释须使用中文。
+
+#### 正确与错误示例
+
+```typescript
+// ❌ 错误示例
+/** Brochure data interface */
+export interface BrochureData {
+  /** Cover page data */
+  cover: CoverData;
+  /** Compliance notice */
+  complianceNotice: ComplianceNoticeData;
+}
+
+// ✅ 正确示例
+/** 白皮书完整数据接口 */
+export interface BrochureData {
+  /** 封面页数据 */
+  cover: CoverData;
+  /** 合规声明数据（必填，不得省略） */
+  complianceNotice: ComplianceNoticeData;
+}
+```
+
+```tsx
+// ❌ 错误示例
+// Cover page component
+const CoverPage: React.FC<CoverPageProps> = ({ data }) => {
+  return <div className="cover-page">{/* Main title */}<h1>{data.title}</h1></div>;
+};
+
+// ✅ 正确示例
+// 封面页组件
+const CoverPage: React.FC<CoverPageProps> = ({ data }) => {
+  return <div className="cover-page">{/* 主标题 */}<h1>{data.title}</h1></div>;
+};
+```
+
+```css
+/* ❌ 错误示例 */
+/* Print styles for A4 export */
+@media print {
+  .cover-page { page-break-after: always; } /* Force page break */
+}
+
+/* ✅ 正确示例 */
+/* A4 打印导出样式 */
+@media print {
+  .cover-page { page-break-after: always; } /* 强制分页 */
+}
+```
+
+#### 各 VS Code AI 扩展的执行要求
+
+| 扩展 | 执行要求 |
+|---|---|
+| Monica | 生成或修改代码时，所有注释使用中文；如发现已有英文注释，同步改为中文 |
+| GitHub Copilot | 接受补全建议前检查注释语言；如补全内容含英文注释，手动修改为中文后再接受 |
+| Continue | 在 Prompt 中明确要求"注释使用中文"；审查生成结果中的注释语言 |
+| Codex | 在 Prompt 中明确要求"所有注释使用中文"；不接受含英文注释的生成结果 |
+| CodeBuddy | 生成或修改代码时，所有注释使用中文；如发现已有英文注释，同步改为中文 |
+
+#### 注意事项
+
+1. 本规则**不影响**第三方库的源码注释（`node_modules/` 中的内容不在管控范围）；
+2. 本规则**不影响**`package.json` 中的 `name`、`scripts`、`dependencies` 等标准字段名；
+3. 如 AI 扩展生成的代码含英文注释，应在 Git 提交前统一修正，不应将含英文注释的代码提交到仓库；
+4. 对话型 AI 助手（如 Monica 聊天）在回复中提供的代码示例同样应使用中文注释，以避免用户直接复制后引入英文注释。
 
 ---
 

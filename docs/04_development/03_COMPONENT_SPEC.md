@@ -225,6 +225,16 @@ export const ComplianceNotice: FC<ComplianceNoticeProps> = ({ data }) => {
 | 职责 | 渲染联系方式与页脚（公司名 + 页码） |
 | Props | `data: ContactData` + `companyName: string` + `pageNumber?: number` |
 
+#### 4.1.11 SectionPage
+
+| 属性 | 说明 |
+|---|---|
+| 文件路径 | `src/components/SectionPage.tsx` |
+| 职责 | 渲染章节分隔页，每个主要章节的起始页 |
+| Props | `number: string` + `title: string` + `subtitle?: string` |
+
+**打印规则**：章节页前强制分页，页后强制分页（独占一页）。
+
 ### 4.2 后续可选组件
 
 以下组件可作为后续版本补充，不作为第一版必需组件：
@@ -239,35 +249,7 @@ export const ComplianceNotice: FC<ComplianceNoticeProps> = ({ data }) => {
 
 **打印规则**：目录页后强制分页。
 
-#### 4.2.2 SectionPage
-
-| 属性 | 说明 |
-|---|---|
-| 文件路径 | `src/components/SectionPage.tsx` |
-| 职责 | 渲染章节分隔页（第一版可省略） |
-| Props | `number: string` + `title: string` + `subtitle?: string` |
-
-```typescript
-interface SectionPageProps {
-  number: string;
-  title: string;
-  subtitle?: string;
-}
-
-export const SectionPage: FC<SectionPageProps> = ({ number, title, subtitle }) => {
-  return (
-    <div className="section-page page-break-before print:break-before-page page-break-after print:break-after-page">
-      <div className="section-number">{number}</div>
-      <h2 className="section-title">{title}</h2>
-      {subtitle && <p className="section-subtitle">{subtitle}</p>}
-    </div>
-  );
-};
-```
-
-**打印规则**：章节页前强制分页，页后强制分页（独占一页）。
-
-#### 4.2.3 ContentSection
+#### 4.2.2 ContentSection
 
 | 属性 | 说明 |
 |---|---|
@@ -309,13 +291,13 @@ export const SectionPage: FC<SectionPageProps> = ({ number, title, subtitle }) =
 // src/components/ComponentName.tsx
 import type { FC } from 'react';
 
-// === Types ===
+// === 类型定义 ===
 interface ComponentNameProps {
   /** Props 说明 */
   data: SomeDataType;
 }
 
-// === Component ===
+// === 组件 ===
 export const ComponentName: FC<ComponentNameProps> = ({ data }) => {
   return (
     <div className="component-name">
@@ -376,7 +358,7 @@ export const ComponentName: FC<ComponentNameProps> = ({ data }) => {
 | 9 | ComplianceNotice | `src/components/ComplianceNotice.tsx` | ✅ 必需 |
 | 10 | ContactAndFooter | `src/components/ContactAndFooter.tsx` | ✅ 必需 |
 | 11 | TableOfContents | `src/components/TableOfContents.tsx` | 🔜 可选 |
-| 12 | SectionPage | `src/components/SectionPage.tsx` | 🔜 可选 |
+| 12 | SectionPage | `src/components/SectionPage.tsx` | ✅ 必需 |
 | 13 | ContentSection | `src/components/ContentSection.tsx` | 🔜 可选 |
 | 14 | ContentBlockRenderer | `src/components/ContentBlockRenderer.tsx` | 🔜 可选 |
 

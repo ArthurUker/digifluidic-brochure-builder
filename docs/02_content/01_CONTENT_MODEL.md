@@ -47,6 +47,10 @@ export interface BrochureData {
   meta: BrochureMeta;
   /** 封面数据 */
   cover: CoverData;
+  /** 执行摘要 */
+  executiveSummary: ExecutiveSummaryData;
+  /** 平台概述 */
+  platformOverview: PlatformOverviewData;
   /** 目录（可选，第一版前端骨架可不强制实现目录组件） */
   tableOfContents?: TOCItem[];
   /** 内容章节列表 */
@@ -55,6 +59,8 @@ export interface BrochureData {
   applicationMatrix: ApplicationMatrixData;
   /** 论文证据列表 */
   paperEvidence: PaperEvidenceData;
+  /** 技术路线 */
+  technologyRoutes: TechnologyRoutesData;
   /** 产品生态 */
   productEcosystem: ProductEcosystemData;
   /** 合规声明 */
@@ -106,7 +112,63 @@ export interface CoverData {
 }
 ```
 
-### 5.3 目录 `TOCItem`
+### 5.3 执行摘要 `ExecutiveSummaryData`
+
+```typescript
+export interface ExecutiveSummaryData {
+  /** 章节标题 */
+  title: string;
+  /** 核心价值主张（1-3 句） */
+  headline: string;
+  /** 摘要段落列表 */
+  paragraphs: string[];
+  /** 关键数据点（可选，用于突出展示） */
+  highlights?: string[];
+}
+```
+
+### 5.4 平台概述 `PlatformOverviewData`
+
+```typescript
+export interface PlatformOverviewData {
+  /** 章节标题 */
+  title: string;
+  /** 平台简介段落 */
+  paragraphs: string[];
+  /** 平台核心能力列表（可选） */
+  capabilities?: string[];
+  /** 平台架构图路径（可选） */
+  diagramPath?: string;
+}
+```
+
+### 5.5 技术路线 `TechnologyRoutesData`
+
+```typescript
+/** 技术路线数据 */
+export interface TechnologyRoutesData {
+  /** 章节标题 */
+  title: string;
+  /** 章节说明（可选） */
+  description?: string;
+  /** 技术路线列表 */
+  routes: TechnologyRouteItem[];
+}
+
+/** 单条技术路线 */
+export interface TechnologyRouteItem {
+  /** 技术路线名称，如"LAMP"、"RT-qPCR" */
+  name: string;
+  /** 技术路线说明（1-2 句） */
+  description: string;
+  /** 适用应用方向（可选） */
+  applications?: string[];
+  /** 关联论文分组名（可选） */
+  paperGroupRef?: string;
+}
+```
+
+### 5.6 目录 `TOCItem`
 
 ```typescript
 export interface TOCItem {
@@ -121,7 +183,7 @@ export interface TOCItem {
 }
 ```
 
-### 5.4 内容章节 `SectionData`
+### 5.7 内容章节 `SectionData`
 
 ```typescript
 export interface SectionData {
@@ -153,7 +215,7 @@ export type SectionType =
   | 'contact';      // 联系方式
 ```
 
-### 5.5 内容块 `ContentBlock`
+### 5.8 内容块 `ContentBlock`
 
 ```typescript
 /** 内容块类型 */
@@ -184,7 +246,7 @@ export interface ContentBlock {
 }
 ```
 
-### 5.6 图片 `ImageData`
+### 5.9 图片 `ImageData`
 
 ```typescript
 export interface ImageData {
@@ -201,7 +263,7 @@ export interface ImageData {
 }
 ```
 
-### 5.7 表格 `TableData`
+### 5.10 表格 `TableData`
 
 ```typescript
 export interface TableData {
@@ -214,7 +276,7 @@ export interface TableData {
 }
 ```
 
-### 5.8 应用矩阵 `ApplicationMatrixData`
+### 5.11 应用矩阵 `ApplicationMatrixData`
 
 ```typescript
 export interface ApplicationMatrixData {
@@ -224,8 +286,8 @@ export interface ApplicationMatrixData {
   description?: string;
   /** 矩阵行 */
   rows: ApplicationMatrixRow[];
-  /** 底部声明 */
-  disclaimer?: string;
+  /** 底部合规声明（必填，不得省略） */
+  disclaimer: string;
 }
 
 export interface ApplicationMatrixRow {
@@ -251,7 +313,7 @@ export type ApplicationStage =
   | 'exploratory';    // 探索性方向
 ```
 
-### 5.9 论文证据 `PaperEvidenceData`
+### 5.12 论文证据 `PaperEvidenceData`
 
 ```typescript
 export interface PaperEvidenceData {
@@ -261,8 +323,8 @@ export interface PaperEvidenceData {
   description?: string;
   /** 论文分组 */
   groups: PaperGroup[];
-  /** 底部声明 */
-  disclaimer?: string;
+  /** 底部合规声明（必填，不得省略） */
+  disclaimer: string;
 }
 
 export interface PaperGroup {
@@ -299,7 +361,7 @@ export type PaperType =
   | 'patent';          // 专利
 ```
 
-### 5.10 产品生态 `ProductEcosystemData`
+### 5.13 产品生态 `ProductEcosystemData`
 
 ```typescript
 export interface ProductEcosystemData {
@@ -328,7 +390,7 @@ export interface EcosystemItem {
 }
 ```
 
-### 5.11 合规声明 `ComplianceNoticeData`
+### 5.14 合规声明 `ComplianceNoticeData`
 
 ```typescript
 export interface ComplianceNoticeData {
@@ -350,7 +412,7 @@ export interface ComplianceNoticeData {
 }
 ```
 
-### 5.12 联系方式 `ContactData`
+### 5.15 联系方式 `ContactData`
 
 ```typescript
 export interface ContactData {
