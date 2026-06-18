@@ -162,8 +162,8 @@ const BrochureLayout: React.FC<BrochureLayoutProps> = ({ data }) => {
                     key={index}
                     className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
                   >
-                    <td className="px-4 py-3 font-medium text-brand">{item.area}</td>
-                    <td className="px-4 py-3 text-gray-700">{item.product}</td>
+                    <td className="px-4 py-3 font-medium text-brand">{item.direction}</td>
+                    <td className="px-4 py-3 text-gray-700">{item.technology}</td>
                     <td className="px-4 py-3 text-gray-600">{item.technology}</td>
                     <td className="px-4 py-3 text-gray-600">{item.highlight}</td>
                   </tr>
