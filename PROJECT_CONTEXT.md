@@ -670,6 +670,7 @@ docs/08_operations/03_MAINTENANCE_CHECKLIST.md
 | 样式文件 | `src/styles/index.css`、`src/styles/print.css` |
 | 配置文件 | `vite.config.ts`、`tailwind.config.js`、`postcss.config.js`、`tsconfig.json` |
 | 脚本文件 | `scripts/export-pdf.ts`、`deploy.ps1` |
+| Nginx 配置文件 | `nginx.conf`（`server` block 内注释）、`docs/05_deployment/` 中的配置示例 |
 | HTML 文件 | `index.html` |
 
 #### 规则细则
@@ -679,7 +680,8 @@ docs/08_operations/03_MAINTENANCE_CHECKLIST.md
 3. **JSDoc 注释中文化**：`@param`、`@returns`、`@description` 等 JSDoc 标签后的说明文字必须为中文；
 4. **已有英文注释须同步修改**：对已有文件进行任何修改时，应将文件中已存在的英文注释同步改为中文，不得保留英文注释；
 5. **配置文件注释同样适用**：`vite.config.ts`、`tailwind.config.js` 等配置文件中的说明注释也须使用中文；
-6. **PowerShell 脚本注释同样适用**：`deploy.ps1` 中的 `#` 注释须使用中文。
+6. **PowerShell 脚本注释同样适用**：`deploy.ps1` 中的 `#` 注释须使用中文；
+7. **Nginx 配置文件注释同样适用**：`nginx.conf` 中 `server` block 内的 `#` 注释须使用中文；`http` 块和 `events` 块中的已有注释不在本项目管控范围内（属于服务器全局配置）。
 
 #### 正确与错误示例
 

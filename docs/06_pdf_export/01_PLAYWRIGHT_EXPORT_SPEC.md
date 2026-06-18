@@ -115,6 +115,8 @@ import fs from 'fs';
 
 const PORT = 4173;
 const BASE_URL = `http://localhost:${PORT}`;
+// 注意：__dirname 在 CommonJS 模块（tsx 执行）中可用
+// 如改为 ESM 模块，需替换为：path.dirname(fileURLToPath(import.meta.url))
 const OUTPUT_DIR = path.resolve(__dirname, '../exports');
 const VERSION = 'v2026.06';
 const OUTPUT_FILE = `Digifluidic_Brochure_customer_zh-CN_${VERSION}.pdf`;

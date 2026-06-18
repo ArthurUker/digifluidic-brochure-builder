@@ -33,7 +33,7 @@
 
 | 运维对象 | 说明 |
 |---|---|
-| Nginx 服务 | 确保 Nginx 正常运行，8083 端口可访问 |
+| Nginx 服务 | 确保 Nginx 正常运行，8083 端口可访问；reload 前必须执行 `nginx -t` 测试配置，通过后再执行 `nginx -s reload` |
 | 静态文件 | `C:\digifluidic-brochure\dist\` 目录完整性 |
 | 页面访问 | 浏览器访问 `http://服务器IP:8083` 正常 |
 | PDF 导出 | 定期验证 PDF 导出功能正常 |

@@ -53,6 +53,12 @@ server {
         add_header Cache-Control "public, immutable";
     }
 
+    # 品牌资产缓存（文件名固定，缓存时间较短）
+    location /brand/ {
+        expires 7d;
+        add_header Cache-Control "public";
+    }
+
     # 禁止访问隐藏文件
     location ~ /\. {
         deny all;
@@ -73,6 +79,8 @@ server {
 | `charset` | `utf-8` | 中文字符集 |
 | `try_files` | `$uri $uri/ /index.html` | SPA 回退，所有路由指向 index.html |
 | `expires` | `30d` | 静态资源缓存 30 天 |
+| `location /brand/` | `expires 7d` | 品牌资产缓存 7 天（文件名固定，不使用 `immutable`） |
+| `location ~ /\.` | `deny all` | 禁止访问隐藏文件，防止 `.env` 等文件泄露 |
 
 ## 4. 扩展配置（可选）
 
@@ -209,6 +217,12 @@ server {
     location /assets/ {
         expires 30d;
         add_header Cache-Control "public, immutable";
+    }
+
+    # 品牌资产缓存（文件名固定，缓存时间较短）
+    location /brand/ {
+        expires 7d;
+        add_header Cache-Control "public";
     }
 
     # 禁止访问隐藏文件
