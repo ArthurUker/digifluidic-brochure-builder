@@ -1,0 +1,58 @@
+/* 全局样式入口文件 */
+
+/* 引入 Tailwind CSS 基础层、组件层和工具层 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ────────────────────────────────────────────
+   全局基础样式
+   ──────────────────────────────────────────── */
+
+@layer base {
+  /* 全局字体和背景色 */
+  body {
+    @apply font-sans text-gray-800 bg-gray-50;
+  }
+
+  /* 标题层级基础样式 */
+  h1 {
+    @apply text-3xl font-bold;
+  }
+
+  h2 {
+    @apply text-2xl font-semibold;
+  }
+
+  h3 {
+    @apply text-xl font-semibold;
+  }
+}
+
+/* ────────────────────────────────────────────
+   白皮书页面容器
+   ──────────────────────────────────────────── */
+
+@layer components {
+  /* A4 页面容器：网页预览时居中显示 */
+  .brochure-page {
+    @apply w-full max-w-4xl mx-auto bg-white shadow-md;
+    /* A4 最小高度，确保打印时不截断 */
+    min-height: 297mm;
+  }
+
+  /* 页面内容区内边距 */
+  .page-content {
+    @apply px-12 py-10;
+  }
+
+  /* 品牌色标题下划线装饰 */
+  .section-title {
+    @apply text-2xl font-bold text-brand pb-2 border-b-2 border-brand mb-6;
+  }
+
+  /* 合规声明区域：使用浅灰背景突出显示 */
+  .compliance-block {
+    @apply bg-gray-50 border border-gray-200 rounded p-6 text-sm text-gray-600;
+  }
+}

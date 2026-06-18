@@ -1,0 +1,87 @@
+/* A4 打印导出样式
+   本文件仅在打印或 Playwright PDF 导出时生效
+   网页预览时不影响页面显示 */
+
+@media print {
+  /* ──────────────────────────────────────────
+     全局打印基础设置
+     ────────────────────────────────────────── */
+
+  /* 设置 A4 页面尺寸和边距 */
+  @page {
+    size: A4 portrait;
+    margin: 15mm 20mm;
+  }
+
+  /* 打印时隐藏浏览器默认页眉页脚 */
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    font-size: 11pt;
+    color: #1a1a1a;
+  }
+
+  /* 打印时去除页面阴影 */
+  .brochure-page {
+    box-shadow: none !important;
+    max-width: none !important;
+    width: 100% !important;
+  }
+
+  /* ──────────────────────────────────────────
+     分页控制
+     ────────────────────────────────────────── */
+
+  /* 封面页后强制分页 */
+  .cover-page {
+    page-break-after: always;
+  }
+
+  /* 各内容章节后强制分页 */
+  .section-page {
+    page-break-after: always;
+  }
+
+  /* 合规声明页后强制分页（确保独立成页） */
+  .compliance-page {
+    page-break-after: always;
+  }
+
+  /* 避免标题与内容跨页断开 */
+  h1,
+  h2,
+  h3 {
+    page-break-after: avoid;
+  }
+
+  /* 避免表格行在页面中间断开 */
+  tr {
+    page-break-inside: avoid;
+  }
+
+  /* 避免图片跨页断开 */
+  img {
+    page-break-inside: avoid;
+  }
+
+  /* ──────────────────────────────────────────
+     打印时隐藏的元素
+     ────────────────────────────────────────── */
+
+  /* 打印时隐藏导航栏、按钮等非内容元素 */
+  .no-print {
+    display: none !important;
+  }
+
+  /* ──────────────────────────────────────────
+     打印时链接处理
+     ────────────────────────────────────────── */
+
+  /* 打印时不显示链接下划线，保持整洁 */
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+}

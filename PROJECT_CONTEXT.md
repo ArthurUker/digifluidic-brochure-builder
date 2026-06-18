@@ -363,8 +363,9 @@ docs/
 16. 已生成并写入 `docs/01_architecture/01_TECH_STACK.md`，作为项目技术栈、工具角色、选型原因、风险控制和当前阶段不纳入技术的基准文档；
 17. 已完成 docs 文档体系全部 39 个 Markdown 文件的填充，涵盖 `00_project/`、`01_architecture/`、`02_content/`、`03_design/`、`04_development/`、`05_deployment/`、`06_pdf_export/`、`07_review_release/`、`08_operations/` 共 9 个子目录，文档主干建设阶段完成。
 18. 已创建 GitHub 远程仓库（https://github.com/ArthurUker/digifluidic-brochure-builder.git），并完成本地代码首次推送。
+19. 已完成前端项目骨架生成（阶段 2），共 14 个骨架文件全部就绪。
 ### 11.2 当前正在进行
-文档主干建设阶段已完成，当前进入前端项目骨架生成阶段。
+阶段 3：生成页面组件，下一个目标文件为 src/components/BrochureLayout.tsx。
 
 已完成（39/39 文件）：
 
@@ -410,7 +411,25 @@ docs/08_operations/02_ROLLBACK_GUIDE.md
 docs/08_operations/03_MAINTENANCE_CHECKLIST.md
 ```
 
-下一步：进入阶段 2，生成前端项目骨架。
+骨架文件清单：
+```text
+package.json
+vite.config.ts
+tsconfig.json
+tsconfig.node.json
+tailwind.config.js
+postcss.config.js
+index.html
+src/main.tsx
+src/App.tsx
+src/styles/index.css
+src/styles/print.css
+src/data/brochure.ts
+src/types/brochure.ts
+.gitignore
+```
+
+下一步：进入阶段 3，生成页面组件。
 ---
 ## 12. 当前协作方式
 ### 12.1 推荐方式
@@ -1018,26 +1037,20 @@ npm run export:pdf
 当前下一步：
 
 ```text
-生成前端项目骨架（阶段 2）
+生成页面组件（阶段 3），第一个文件：src/components/BrochureLayout.tsx
 ```
 
-GitHub 远程仓库已就绪，下一步进入阶段 2，生成以下前端骨架文件：
+阶段 2 骨架文件已全部生成完毕（14/14 文件），下一阶段生成以下页面组件文件：
 
 ```text
-package.json
-vite.config.ts
-tsconfig.json
-tsconfig.node.json
-tailwind.config.js
-postcss.config.js
-index.html
-src/main.tsx
-src/App.tsx
-src/styles/index.css
-src/styles/print.css
-src/data/brochure.ts
-src/types/brochure.ts
-.gitignore
+src/components/BrochureLayout.tsx
+src/components/CoverPage.tsx
+src/components/ExecutiveSummary.tsx
+src/components/PlatformOverview.tsx
+src/components/SectionPage.tsx
+src/components/ApplicationMatrix.tsx
+src/components/PaperEvidenceList.tsx
+src/components/ProductEcosystem.tsx
+src/components/ComplianceNotice.tsx
+src/components/Footer.tsx
 ```
-
-骨架文件全部生成完毕后，执行一次 Git 提交和推送，再继续阶段 3（页面组件）。
